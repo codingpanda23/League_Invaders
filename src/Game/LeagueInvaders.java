@@ -1,23 +1,34 @@
 package Game;
 
+import java.awt.Dimension;
+import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class LeagueInvaders {
-	class Game {
-		JFrame frame;
+	JFrame frame;
+	final int width = 500;
+	final int height = 800;
+	GamePanel gamePanel;
+	
+	public LeagueInvaders(){
+		frame = new JFrame();
+		gamePanel = new GamePanel();
 	}
 
 	public static void main(String[] args) {
-
+		LeagueInvaders object = new LeagueInvaders();
+		object.setup();
 	}
 
-	void setup() {
-		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
-		panel.add(frame);
+	public void setup() {
+		frame.getContentPane().setPreferredSize(new Dimension(width, height));
+		frame.pack();
+		frame.add(gamePanel);
 		frame.setVisible(true);
-		frame.setSize(500, 800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gamePanel.startGame();
+		frame.addKeyListener(gamePanel);
 
 	}
 }
