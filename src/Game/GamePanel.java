@@ -13,11 +13,15 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Timer timer;
-	GameObject gameObject;
+	
+	final int MENU_STATE = 0;
+	final int GAME_STATE = 1;
+	final int END_STATE = 2;
+	int currentState = MENU_STATE;
 	
 	GamePanel(){
 		timer = new Timer(1000/60, this);
-		gameObject = new GameObject(1, 1, 1, 1);
+		
 	}
 	
 	public void startGame(){
@@ -26,11 +30,39 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
 ///////////////////////////////////////////////////////////
 	
+	public void updateMenuState(){
+		
+	}
+	public void updateGameState(){
+		
+	}
+	public void updateEndState(){
+		
+	}
+	
+	public void drawMenuState(Graphics g){
+		
+	}
+	public void drawGameState(Graphics g){
+		
+	}
+	public void drawEndState(Graphics g){
+	
+}
+	
+///////////////////////////////////////////////////////////	
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		repaint();
-		gameObject.update();
+		if (currentState == MENU_STATE) {
+			updateMenuState();
+		} else if (currentState == GAME_STATE) {
+			updateGameState();
+		} else if (currentState == END_STATE) {
+			updateEndState();
+		}
 	}
 	@Override
 	public void keyPressed(KeyEvent a) {
@@ -49,6 +81,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	@Override
 	public void paintComponent(Graphics g){
-		 gameObject.draw(g);
+		 
 	}
 }
