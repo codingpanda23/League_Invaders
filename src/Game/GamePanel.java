@@ -1,11 +1,12 @@
 package Game;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -13,6 +14,7 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Timer timer;
+	Font titleFont;
 	
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -21,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	GamePanel(){
 		timer = new Timer(1000/60, this);
-		
+		titleFont = new Font("Arial", Font.PLAIN, 48);
 	}
 	
 	public void startGame(){
@@ -41,14 +43,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	public void drawMenuState(Graphics g){
-		
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+		g.setFont(titleFont);
 	}
 	public void drawGameState(Graphics g){
-		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
 	}
 	public void drawEndState(Graphics g){
-	
-}
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+	}
 	
 ///////////////////////////////////////////////////////////	
 	
@@ -65,22 +71,34 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	@Override
-	public void keyPressed(KeyEvent a) {
+	public void keyPressed(KeyEvent ENTER) {
 		// TODO Auto-generated method stub
-		System.out.println("Hi");
+		if (currentState == MENU_STATE) {
+			currentState = GAME_STATE;
+		}else if (currentState == GAME_STATE) {
+			currentState = END_STATE;
+		}else if (currentState == END_STATE) {
+			currentState = MENU_STATE;
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent a) {
 		// TODO Auto-generated method stub
-		System.out.println("hello");
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent a) {
 		// TODO Auto-generated method stub
-		System.out.println("smiles! :D");
+		
 	}
 	@Override
 	public void paintComponent(Graphics g){
-		 
+		if (currentState == MENU_STATE) {
+			drawMenuState(g);
+		} else if (currentState == GAME_STATE) {
+			drawGameState(g);
+		} else if (currentState == END_STATE) {
+			drawEndState(g);
+		}
 	}
 }
