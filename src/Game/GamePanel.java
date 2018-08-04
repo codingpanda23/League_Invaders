@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font font;
 	Rocketship rocket;
+	Boolean boo;
 
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -28,7 +29,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		font = new Font("Arial", Font.PLAIN, 48);
-		rocket = new Rocketship(250,50, 50, 50);
+		rocket = new Rocketship(250, 50, 50, 50);
+		boo = new Boolean(true);
 
 	}
 
@@ -61,7 +63,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
-		
+
 		rocket.draw(g);
 	}
 
@@ -89,7 +91,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent ENTER) {
+	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (currentState == MENU_STATE) {
 			currentState = GAME_STATE;
@@ -97,6 +99,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END_STATE;
 		} else if (currentState == END_STATE) {
 			currentState = MENU_STATE;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			rocket.x++;
 		}
 	}
 
