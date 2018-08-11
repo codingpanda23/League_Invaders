@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	///////////////////////////////////////////////////////////
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
 		if (currentState == MENU_STATE) {
@@ -93,16 +93,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (currentState == MENU_STATE) {
+		/*if (currentState == MENU_STATE) {
 			currentState = GAME_STATE;
 		} else if (currentState == GAME_STATE) {
 			currentState = END_STATE;
 		} else if (currentState == END_STATE) {
 			currentState = MENU_STATE;
+		}*/
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState++;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			rocket.x++;
+		if (currentState > END_STATE) {
+			currentState = GAME_STATE;
 		}
+		if (currentState > GAME_STATE) {
+			currentState = MENU_STATE;
+		}
+		
+
 	}
 
 	@Override
