@@ -107,10 +107,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rocket.x-=rocket.speed;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			rocket.y+=rocket.speed;
+			rocket.y-=rocket.speed;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			rocket.y-=rocket.speed;
+			rocket.y+=rocket.speed;
 		}
 
 	}
