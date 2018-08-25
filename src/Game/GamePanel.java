@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		font = new Font("Arial", Font.PLAIN, 48);
-		rocket = new Rocketship(250, 50, 50, 50);
+		rocket = new Rocketship(250, 700, 50, 50);
 		boo = new Boolean(true);
 
 	}
@@ -101,7 +101,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			rocket.x++;
+			rocket.x+=rocket.speed;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			rocket.x-=rocket.speed;
