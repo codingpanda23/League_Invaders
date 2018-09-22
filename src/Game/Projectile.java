@@ -5,16 +5,18 @@ import java.awt.Graphics;
 
 public class Projectile extends GameObject{
 	int speed;
+	Boolean isAlive;
 	
 	Projectile(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		
 		speed = 10;
+		
 	}
 	public void update() {
 		y = y-speed;
 		if (y < 0) {
-			
+			isAlive = false;
 		}
 	}
 

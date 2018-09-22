@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 public class ObjectManager {
 	Rocketship ship;
+	Projectile[]proj = {};
 	
 	ObjectManager(Rocketship object){
 		ship = object;

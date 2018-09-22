@@ -28,8 +28,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		titleFont = new Font("Arial", Font.PLAIN, 48);
-		font = new Font("Arial", Font.PLAIN, 48);
+		titleFont = new Font("Comic Sans", Font.PLAIN, 48);
+		font = new Font("Comic Sans", Font.PLAIN, 48);
 		rocket = new Rocketship(250, 700, 50, 50);
 		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	///////////////////////////////////////////////////////////
+
 
 	public void updateMenuState() {
 
