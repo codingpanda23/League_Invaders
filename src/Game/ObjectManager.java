@@ -13,10 +13,15 @@ public class ObjectManager {
 	}
 	public void update(){
 		ship.update();
-		
+		for (int i = 0; i < proj.size(); i++) {
+			proj.get(i).update();
+		}
 	}
 	public void draw(Graphics g) {
 		ship.draw(g);
+		for (int i = 0; i < proj.size(); i++) {
+			proj.get(i).draw(g);
+		}
 	}
 	public void addProjectile(Projectile proj){
 		
