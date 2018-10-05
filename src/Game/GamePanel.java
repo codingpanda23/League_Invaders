@@ -49,6 +49,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		manage.update();
+		manage.manageEnemies();
 	}
 
 	public void updateEndState() {
@@ -99,28 +100,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
 		}
+		
+		
+		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			rocket.x+=rocket.speed;
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			rocket.x-=rocket.speed;
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_UP) {
+			rocket.y-=rocket.speed;
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			rocket.y+=rocket.speed;
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			manage.addProjectile(new Projectile(rocket.x+22, rocket.y-5, 10, 15));
+			
+			
+		}
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			rocket.x+=rocket.speed;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			rocket.x-=rocket.speed;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			rocket.y-=rocket.speed;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			rocket.y+=rocket.speed;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			manage.addProjectile(new Projectile(rocket.x, rocket.y, 10, 10));
-			
-			
-		}
-
 	}
 
 	@Override
