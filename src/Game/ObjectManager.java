@@ -17,6 +17,7 @@ public class ObjectManager {
 		projs= new ArrayList<Projectile>();
 		aliens = new ArrayList<Alien>();
 		enemyTimer = new Long(0);
+		enemySpawnTime = 1000;
 		
 		
 	}
