@@ -50,6 +50,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateGameState() {
 		manage.update();
 		manage.manageEnemies();
+		manage.purgeObjects();
+		manage.checkCollision();
+		if (!rocket.isAlive) {
+			currentState = END_STATE;
+		}
 	}
 
 	public void updateEndState() {

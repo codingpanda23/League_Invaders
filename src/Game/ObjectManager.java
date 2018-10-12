@@ -10,6 +10,7 @@ public class ObjectManager {
 	ArrayList<Alien> aliens;
 	Long enemyTimer;
 	int enemySpawnTime;
+	int score;
 	
 	
 	ObjectManager(Rocketship object){
@@ -18,6 +19,7 @@ public class ObjectManager {
 		aliens = new ArrayList<Alien>();
 		enemyTimer = new Long(0);
 		enemySpawnTime = 1000;
+		score = 0;
 		
 		
 	}
@@ -53,12 +55,36 @@ public class ObjectManager {
         }
 	}
 	public void purgeObjects() {
-		for (int i = 0; i < projs.size(); i++) {
-			projs.remove(projs);
+		for (int i = 0; i < projs.size(); i++){
+			if (projs.get(i).isAlive == false) {
+				projs.remove(i);
+			}
 		}
 		for (int i = 0; i < aliens.size(); i++) {
-			aliens.remove(aliens);
+			if (aliens.get(i).isAlive == false) {
+				aliens.remove(i);
+			}
 		}
+	}
+	public void checkCollision() {
+		for(Alien a : aliens){
+	        if(ship.collisionBox.intersects(a.collisionBox)){
+	                ship.isAlive = false;
+	        }
+	        else {
+	        		for(Projectile p : projs){
+	                if(p.collisionBox.intersects(a.collisionBox)){
+	                        a.isAlive = false;
+	                        p.isAlive = false;
+	                }
+
+	        		}
+			}
+		}
+	}
+	public int getScore() {
+		return this.score;
+		
 	}
 	
 }
