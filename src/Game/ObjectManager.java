@@ -20,9 +20,8 @@ public class ObjectManager {
 		enemyTimer = new Long(0);
 		enemySpawnTime = 1000;
 		score = 0;
-		
-		
 	}
+	
 	public void update(){
 		ship.update();
 		for (int i = 0; i < projs.size(); i++) {
@@ -31,8 +30,8 @@ public class ObjectManager {
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 		}
-		
 	}
+	
 	public void draw(Graphics g) {
 		ship.draw(g);
 		for (int i = 0; i < projs.size(); i++) {
@@ -42,18 +41,23 @@ public class ObjectManager {
 			aliens.get(i).draw(g);
 		}
 	}
+	
 	public void addProjectile(Projectile proj){
 		projs.add(proj);
 	}
+	
 	public void addAlien(Alien al) {
 		aliens.add(al);
 	}
+	
 	public void manageEnemies(){
         if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
                 addAlien(new Alien(new Random().nextInt(LeagueInvaders.width), 0, 50, 50));
+                System.exit(0);
                 enemyTimer = System.currentTimeMillis();
         }
 	}
+	
 	public void purgeObjects() {
 		for (int i = 0; i < projs.size(); i++){
 			if (projs.get(i).isAlive == false) {
@@ -66,6 +70,7 @@ public class ObjectManager {
 			}
 		}
 	}
+	
 	public void checkCollision() {
 		for(Alien a : aliens){
 	        if(ship.collisionBox.intersects(a.collisionBox)){
@@ -76,15 +81,17 @@ public class ObjectManager {
 	                if(p.collisionBox.intersects(a.collisionBox)){
 	                        a.isAlive = false;
 	                        p.isAlive = false;
+	                        score++;
 	                }
 
 	        		}
 			}
+	        
 		}
 	}
+	
 	public int getScore() {
 		return this.score;
-		
 	}
 	
 }
