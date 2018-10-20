@@ -92,5 +92,4 @@ public class ObjectManager {
 	public int getScore() {
 		return this.score;
 	}
-	
 }
