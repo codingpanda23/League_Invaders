@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager manage;
 	
 	public static BufferedImage alienImg;
-    public static BufferedImage rocketImg;
+    public static BufferedImage pandaImg;
     public static BufferedImage bulletImg;
     public static BufferedImage spaceImg;
 	
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		try {
             alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
-            rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+            pandaImg = ImageIO.read(this.getClass().getResourceAsStream("panda.png"));
             bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
             spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
 		} 	
@@ -145,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rocket.y+=rocket.speed;
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			manage.addProjectile(new Projectile(rocket.x+22, rocket.y-5, 10, 15));
+			manage.addProjectile(new Projectile(rocket.x+70, rocket.y+ 30, 10, 15));
 		}
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;

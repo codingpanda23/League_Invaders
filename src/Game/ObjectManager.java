@@ -11,18 +11,17 @@ public class ObjectManager {
 	Long enemyTimer;
 	int enemySpawnTime;
 	int score;
-	
-	
-	ObjectManager(Rocketship object){
+
+	ObjectManager(Rocketship object) {
 		ship = object;
-		projs= new ArrayList<Projectile>();
+		projs = new ArrayList<Projectile>();
 		aliens = new ArrayList<Alien>();
 		enemyTimer = new Long(0);
 		enemySpawnTime = 1000;
 		score = 0;
 	}
-	
-	public void update(){
+
+	public void update() {
 		ship.update();
 		for (int i = 0; i < projs.size(); i++) {
 			projs.get(i).update();
@@ -31,7 +30,7 @@ public class ObjectManager {
 			aliens.get(i).update();
 		}
 	}
-	
+
 	public void draw(Graphics g) {
 		ship.draw(g);
 		for (int i = 0; i < projs.size(); i++) {
@@ -41,24 +40,41 @@ public class ObjectManager {
 			aliens.get(i).draw(g);
 		}
 	}
-	
-	public void addProjectile(Projectile proj){
+
+	public void addProjectile(Projectile proj) {
 		projs.add(proj);
 	}
-	
+
 	public void addAlien(Alien al) {
 		aliens.add(al);
 	}
-	
-	public void manageEnemies(){
-        if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
-                addAlien(new Alien(new Random().nextInt(LeagueInvaders.width), 0, 50, 50));
-                enemyTimer = System.currentTimeMillis();
-        }
+
+	public void manageEnemies() {
+		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
+			addAlien(new Alien(new Random().nextInt(LeagueInvaders.width), 0, 50, 50));
+			enemyTimer = System.currentTimeMillis();
+		}
 	}
-	
+
+	public void checkCollision() {
+
+		for (Alien a : aliens) {
+			if (ship.collisionBox.intersects(a.collisionBox)) {
+				ship.isAlive = false;
+			}
+
+			for (Projectile p : projs) {
+				if (p.collisionBox.intersects(a.collisionBox)) {
+					a.isAlive = false;
+					p.isAlive = false;
+					score++;
+				}
+			}
+		}
+	}
+
 	public void purgeObjects() {
-		for (int i = 0; i < projs.size(); i++){
+		for (int i = 0; i < projs.size(); i++) {
 			if (projs.get(i).isAlive == false) {
 				projs.remove(i);
 			}
@@ -69,26 +85,7 @@ public class ObjectManager {
 			}
 		}
 	}
-	
-	public void checkCollision() {
-		for(Alien a : aliens){
-	        if(ship.collisionBox.intersects(a.collisionBox)){
-	                ship.isAlive = false;
-	        }
-	        else {
-	        		for(Projectile p : projs){
-	                if(p.collisionBox.intersects(a.collisionBox)){
-	                        a.isAlive = false;
-	                        p.isAlive = false;
-	                        score++;
-	                }
 
-	        		}
-			}
-	        
-		}
-	}
-	
 	public int getScore() {
 		return this.score;
 	}
