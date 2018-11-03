@@ -13,6 +13,6 @@ public class Alien extends GameObject{
 		y++;
 	}
 	public void draw(Graphics g) {
-		g.drawImage(GamePanel.alienImg, x, y, width, height, null);
+		g.drawImage(GamePanel.candyImg, x, y, width, height, null);
 	}
 }

@@ -25,10 +25,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Boolean boo;
 	ObjectManager manage;
 	
-	public static BufferedImage alienImg;
+	public static BufferedImage candyImg;
     public static BufferedImage pandaImg;
     public static BufferedImage bulletImg;
-    public static BufferedImage spaceImg;
+    public static BufferedImage spookyImg;
 	
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -45,10 +45,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manage = new ObjectManager(rocket);
 
 		try {
-            alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+            candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
             pandaImg = ImageIO.read(this.getClass().getResourceAsStream("panda.png"));
             bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
-            spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+            spookyImg = ImageIO.read(this.getClass().getResourceAsStream("spooky.png"));
 		} 	
 		catch (IOException e) {
             // TODO Auto-generated catch block
@@ -86,11 +86,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
 		g.setColor(Color.YELLOW);
 		g.setFont(titleFont);
-		g.drawString("League Invaders", 65, 150);
+		g.drawString("Candy Guard", 100, 150);
 	}
 
 	public void drawGameState(Graphics g) {
-		g.drawImage(GamePanel.spaceImg, 0, 0, LeagueInvaders.width, LeagueInvaders.height, null);
+		g.drawImage(GamePanel.spookyImg, 0, 0, LeagueInvaders.width, LeagueInvaders.height, null);
 		manage.draw(g);
 	}
 
@@ -103,7 +103,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setColor(Color.BLACK);
 		g.setFont(scorefont);
-		g.drawString("You scored "+ manage.getScore() + " points!", 100, 400);
+		g.drawString("You destroyed "+ manage.getScore() + " bad candies!", 50, 400);
 	}
 
 	///////////////////////////////////////////////////////////
