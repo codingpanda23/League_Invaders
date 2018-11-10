@@ -1,6 +1,8 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class GameObject {
@@ -17,7 +19,7 @@ public class GameObject {
 		this.width = width;
 		this.height = height;
 		isAlive = true;
-		collisionBox = new Rectangle(x, y, width, height);
+		collisionBox = new Rectangle(x, y, 135, 135);
 	}
 
 	public void update() {
@@ -25,6 +27,7 @@ public class GameObject {
 	}
 
 	public void draw(Graphics g) {
-
+		Graphics2D g2 = (Graphics2D) g;
+		g2.draw(collisionBox);
 	}
 }

@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font font;
 	Font scorefont;
+	Font instruction;
 	Rocketship rocket;
 	Boolean boo;
 	ObjectManager manage;
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("Comic Sans", Font.PLAIN, 48);
 		font = new Font("Comic Sans", Font.PLAIN, 48);
 		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
+		instruction = new Font("Comic Sans", Font.PLAIN, 25);
 		rocket = new Rocketship(250, 700, 50, 50);
 		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
@@ -87,6 +89,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.YELLOW);
 		g.setFont(titleFont);
 		g.drawString("Candy Guard", 100, 150);
+		g.setFont(instruction);
+		g.drawString("You are the candy guard.", 100, 500);
+		g.drawString("Destroy the bad candies", 100, 550);
+		g.drawString("before they reach the good", 100, 600);
+		g.drawString("candy pile for halloween.", 100, 650);
+		g.drawString("Don't let them touch you, though.", 80, 700);
 	}
 
 	public void drawGameState(Graphics g) {
