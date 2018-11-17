@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font font;
 	Font scorefont;
 	Font instruction;
+	Font done;
 	Rocketship rocket;
 	Boolean boo;
 	ObjectManager manage;
@@ -31,10 +32,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public static BufferedImage bulletImg;
     public static BufferedImage spookyImg;
 	
-	final int MENU_STATE = 0;
-	final int GAME_STATE = 1;
-	final int END_STATE = 2;
-	int currentState = MENU_STATE;
+	final static int MENU_STATE = 0;
+	final static int GAME_STATE = 1;
+	final static int END_STATE = 2;
+	static int currentState = MENU_STATE;
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -42,6 +43,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		font = new Font("Comic Sans", Font.PLAIN, 48);
 		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
 		instruction = new Font("Comic Sans", Font.PLAIN, 25);
+		done = new Font("Comic Sans", Font.PLAIN, 25);
 		rocket = new Rocketship(250, 700, 50, 50);
 		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
@@ -89,12 +91,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.YELLOW);
 		g.setFont(titleFont);
 		g.drawString("Candy Guard", 100, 150);
+		
 		g.setFont(instruction);
 		g.drawString("You are the candy guard.", 100, 500);
 		g.drawString("Destroy the bad candies", 100, 550);
 		g.drawString("before they reach the good", 100, 600);
 		g.drawString("candy pile for halloween.", 100, 650);
-		g.drawString("Don't let them touch you, though.", 80, 700);
+		g.drawString("Don't let them touch you, though.", 70, 700);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -107,11 +110,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
 		g.setColor(Color.BLACK);
 		g.setFont(font);
-		g.drawString("Game Over", 120, 150);
+		g.drawString("The evil", 120, 150);
+		g.drawString("candies won!", 90, 200);
 		
 		g.setColor(Color.BLACK);
 		g.setFont(scorefont);
 		g.drawString("You destroyed "+ manage.getScore() + " bad candies!", 50, 400);
+		g.setFont(done);
+		g.drawString("Hit ENTER to try again", 125, 450);
 	}
 
 	///////////////////////////////////////////////////////////

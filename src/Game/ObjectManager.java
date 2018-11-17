@@ -1,5 +1,5 @@
 package Game;
-
+import java.awt.*;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,6 +11,7 @@ public class ObjectManager {
 	Long enemyTimer;
 	int enemySpawnTime;
 	int score;
+	int badCandy;
 
 	ObjectManager(Rocketship object) {
 		ship = object;
@@ -71,7 +72,19 @@ public class ObjectManager {
 				}
 			}
 		}
+		for (Alien b : aliens) {
+			if (b.y+b.height>=800) {
+				badCandy++;
+				b.isAlive = false;
+			}
+			if (badCandy>=5) {
+				GamePanel.currentState = GamePanel.END_STATE;
+			}
+		}
+		
+	
 	}
+	
 
 	public void purgeObjects() {
 		for (int i = 0; i < projs.size(); i++) {
