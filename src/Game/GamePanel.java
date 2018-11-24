@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public static BufferedImage pandaImg;
     public static BufferedImage bulletImg;
     public static BufferedImage spookyImg;
+    public static BufferedImage candypileImg;
 	
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             pandaImg = ImageIO.read(this.getClass().getResourceAsStream("panda.png"));
             bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
             spookyImg = ImageIO.read(this.getClass().getResourceAsStream("spooky.png"));
+            candypileImg = ImageIO.read(this.getClass().getResourceAsStream("candypile.png"));
 		} 	
 		catch (IOException e) {
             // TODO Auto-generated catch block
@@ -86,34 +88,40 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
-		g.setColor(Color.YELLOW);
+		g.drawImage(GamePanel.candypileImg, 100, 200, 300, 200, null);
+		
+		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
 		g.drawString("Candy Guard", 100, 150);
 		
 		g.setFont(instruction);
-		g.drawString("You are the candy guard.", 100, 500);
-		g.drawString("Destroy the bad candies", 100, 550);
-		g.drawString("before they reach the good", 100, 600);
-		g.drawString("candy pile for halloween.", 100, 650);
-		g.drawString("Don't let them touch you, though.", 70, 700);
+		g.drawString("You are the halloween candy guard.", 40, 500);
+		g.drawString("Destroy as many bad candies", 80, 550);
+		g.drawString("as you can. Once 5 bad candies reach", 30, 600);
+		g.drawString("the pile, the game ends. Don't let the", 30, 650);
+		g.drawString("bad candies touch you. Use the arrow", 30, 700);
+		g.drawString("keys to move and space to shoot.", 80, 750);
+		
+		g.setColor(Color.YELLOW);
+		g.drawString("Good Luck!", 180, 780);
 	}
 
 	public void drawGameState(Graphics g) {
-		g.drawImage(GamePanel.spookyImg, 0, 0, LeagueInvaders.width, LeagueInvaders.height, null);
+		g.drawImage(GamePanel.spookyImg, -5, -5, 550, 810, null);
 		manage.draw(g);
 	}
 
 	public void drawEndState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.RED);
 		g.setFont(font);
-		g.drawString("The evil", 120, 150);
-		g.drawString("candies won!", 90, 200);
+		g.drawString("Game", 190, 150);
+		g.drawString("Over", 200, 200);
 		
-		g.setColor(Color.BLACK);
+		g.setColor(Color.RED);
 		g.setFont(scorefont);
 		g.drawString("You destroyed "+ manage.getScore() + " bad candies!", 50, 400);
 		g.setFont(done);
