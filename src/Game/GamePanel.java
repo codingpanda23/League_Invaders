@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		titleFont = new Font("Comic Sans", Font.PLAIN, 48);
+		titleFont = new Font("Comic Sans", Font.PLAIN, 60);
 		font = new Font("Comic Sans", Font.PLAIN, 48);
 		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
 		instruction = new Font("Comic Sans", Font.PLAIN, 25);
@@ -94,18 +94,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
-		g.drawString("Candy Guard", 100, 150);
+		g.drawString("Candy Guard", 80, 150);
 		
 		g.setFont(instruction);
-		g.drawString("You are the halloween candy guard.", 40, 500);
-		g.drawString("Destroy as many bad candies", 80, 550);
-		g.drawString("as you can. Once 5 bad candies reach", 30, 600);
-		g.drawString("the pile, the game ends. Don't let the", 30, 650);
-		g.drawString("bad candies touch you. Use the arrow", 30, 700);
-		g.drawString("keys to move and space to shoot.", 80, 750);
+		g.drawString("You are the halloween candy guard.", 40, 450);
+		g.drawString("Destroy as many bad candies", 80, 500);
+		g.drawString("as you can. Once 5 bad candies reach", 30, 550);
+		g.drawString("the pile, the game ends. Don't let the", 30, 600);
+		g.drawString("bad candies touch you. Use the arrow", 30, 650);
+		g.drawString("keys to move and space to shoot.", 70, 700);
 		
 		g.setColor(Color.YELLOW);
-		g.drawString("Good Luck!", 180, 780);
+		g.drawString("Good Luck!", 180, 750);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -156,6 +156,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			rocket.x+=rocket.speed;
+			if (rocket.x>500) {
+				rocket.x=500;
+			}
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			rocket.x-=rocket.speed;
@@ -169,6 +172,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x+70, rocket.y+ 30, 10, 15));
 		}
+		
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
