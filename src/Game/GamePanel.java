@@ -26,6 +26,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Rocketship rocket;
 	Boolean boo;
 	ObjectManager manage;
+	Boolean up;
+	Boolean down;
+	Boolean left;
+	Boolean right;
 	
 	public static BufferedImage candyImg;
     public static BufferedImage pandaImg;
@@ -45,9 +49,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
 		instruction = new Font("Comic Sans", Font.PLAIN, 25);
 		done = new Font("Comic Sans", Font.PLAIN, 25);
-		rocket = new Rocketship(250, 700, 50, 50);
+		rocket = new Rocketship(180, 650, 50, 50);
 		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
+		up = new Boolean(false);
+		down = new Boolean(false);
+		left = new Boolean(false);
+		right = new Boolean(false);
 
 		try {
             candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -105,7 +113,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("keys to move and space to shoot.", 70, 700);
 		
 		g.setColor(Color.YELLOW);
-		g.drawString("Good Luck!", 180, 750);
+		g.drawString("Press ENTER To Start", 130, 750);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -141,6 +149,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
+		
+		//MOVE();
 	}
 
 	@Override
@@ -149,25 +159,34 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
 			if (currentState >= END_STATE) {
-				rocket = new Rocketship(250, 700, 50, 50);
+				rocket = new Rocketship(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 			}
 		}
 		
 		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			rocket.x+=rocket.speed;
-			if (rocket.x>500) {
-				rocket.x=500;
-			}
+			right = true;
+			//if (rocket.x>400) {
+				//rocket.x=400;
+			//}
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			rocket.x-=rocket.speed;
+			left = true;
+			//if (rocket.x<0) {
+				//rocket.x=-10;
+			//}
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			rocket.y-=rocket.speed;
+			up = true;
+			//if (rocket.y<0) {
+				//rocket.y=0;
+			//}
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			rocket.y+=rocket.speed;
+			down = false;
+			//if (rocket.y>700) {
+				//rocket.y=700;
+			//}
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x+70, rocket.y+ 30, 10, 15));
@@ -178,10 +197,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
+	
 	@Override
 	public void keyReleased(KeyEvent a) {
 		// TODO Auto-generated method stub
-
+//		up = false;
+//		down = false;
+//		left = false;
+//		right = false;
+		
 	}
 
 	@Override
@@ -200,4 +224,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawEndState(g);
 		}
 	}
+	
+//	public void MOVE() {
+//		if (up == true) {
+//			rocket.y-=rocket.speed;
+//		}
+//		if (down == true) {
+//			rocket.y+=rocket.speed;
+//		}
+//		if (left == true) {
+//			rocket.x-=rocket.speed;
+//		}
+//		if (up == true) {
+//			rocket.x+=rocket.speed;
+//		}
+//	}
 }
