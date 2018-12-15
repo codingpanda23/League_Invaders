@@ -24,7 +24,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font instruction;
 	Font done;
 	Ghost rocket;
-	Boolean boo;
 	ObjectManager manage;
 	
 
@@ -47,7 +46,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		instruction = new Font("Comic Sans", Font.PLAIN, 25);
 		done = new Font("Comic Sans", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
-		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
 		
 
@@ -153,35 +151,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState >= END_STATE) {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
+				timer = new Timer(1000 / 60, this);
+				currentState = MENU_STATE;
 			}
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		} 
+		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));
 		} else {
 			if (!rocket.isMoving) {
-
 				// movement keys
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					
 					rocket.isMoving = true;
 					rocket.direction = Ghost.RIGHT;
-					
-				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					
+				} 
+				else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.LEFT;
-					
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					
+				} 
+				else if (e.getKeyCode() == KeyEvent.VK_UP) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.UP;
-					
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					
+				} 
+				else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.DOWN;
-					
 				}
-
 			}
 
 			if (currentState > END_STATE) {
