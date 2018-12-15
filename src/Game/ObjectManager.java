@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ObjectManager {
-	Rocketship ship;
+	Ghost ship;
 	ArrayList<Projectile> projs;
-	ArrayList<Alien> aliens;
+	ArrayList<BadCandy> aliens;
 	Long enemyTimer;
 	int enemySpawnTime;
 	int score;
 	int badCandy;
 
-	ObjectManager(Rocketship object) {
+	ObjectManager(Ghost object) {
 		ship = object;
 		projs = new ArrayList<Projectile>();
-		aliens = new ArrayList<Alien>();
+		aliens = new ArrayList<BadCandy>();
 		enemyTimer = new Long(0);
 		enemySpawnTime = 1000;
 		score = 0;
@@ -46,20 +46,20 @@ public class ObjectManager {
 		projs.add(proj);
 	}
 
-	public void addAlien(Alien al) {
+	public void addAlien(BadCandy al) {
 		aliens.add(al);
 	}
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addAlien(new Alien(new Random().nextInt(LeagueInvaders.width), 0, 50, 50));
+			addAlien(new BadCandy(new Random().nextInt(CandyGuard.width), 0, 50, 50));
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
 
 	public void checkCollision() {
 
-		for (Alien a : aliens) {
+		for (BadCandy a : aliens) {
 			if (ship.collisionBox.intersects(a.collisionBox)) {
 				ship.isAlive = false;
 			}
@@ -72,7 +72,7 @@ public class ObjectManager {
 				}
 			}
 		}
-		for (Alien b : aliens) {
+		for (BadCandy b : aliens) {
 			if (b.y+b.height>=800) {
 				badCandy++;
 				b.isAlive = false;

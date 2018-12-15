@@ -3,8 +3,8 @@ package Game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Alien extends GameObject{
-	Alien(int x, int y, int width, int height) {
+public class BadCandy extends GameObject{
+	BadCandy(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		
 	}

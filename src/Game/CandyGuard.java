@@ -5,19 +5,19 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-public class LeagueInvaders {
+public class CandyGuard {
 	JFrame frame;
 	final static int width = 500;
 	final static int height = 800;
 	GamePanel gamePanel;
 	
-	public LeagueInvaders(){
+	public CandyGuard(){
 		frame = new JFrame();
 		gamePanel = new GamePanel();
 	}
 
 	public static void main(String[] args) {
-		LeagueInvaders object = new LeagueInvaders();
+		CandyGuard object = new CandyGuard();
 		object.setup();
 	}
 

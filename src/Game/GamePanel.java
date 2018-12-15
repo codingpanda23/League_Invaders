@@ -23,20 +23,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font scorefont;
 	Font instruction;
 	Font done;
-	Rocketship rocket;
+	Ghost rocket;
 	Boolean boo;
 	ObjectManager manage;
-	Boolean up;
-	Boolean down;
-	Boolean left;
-	Boolean right;
 	
+
 	public static BufferedImage candyImg;
-    public static BufferedImage pandaImg;
-    public static BufferedImage bulletImg;
-    public static BufferedImage spookyImg;
-    public static BufferedImage candypileImg;
-	
+	public static BufferedImage pandaImg;
+	public static BufferedImage bulletImg;
+	public static BufferedImage spookyImg;
+	public static BufferedImage candypileImg;
+
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
 	final static int END_STATE = 2;
@@ -49,25 +46,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
 		instruction = new Font("Comic Sans", Font.PLAIN, 25);
 		done = new Font("Comic Sans", Font.PLAIN, 25);
-		rocket = new Rocketship(180, 650, 50, 50);
+		rocket = new Ghost(180, 650, 50, 50);
 		boo = new Boolean(true);
 		manage = new ObjectManager(rocket);
-		up = new Boolean(false);
-		down = new Boolean(false);
-		left = new Boolean(false);
-		right = new Boolean(false);
+		
 
 		try {
-            candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
-            pandaImg = ImageIO.read(this.getClass().getResourceAsStream("panda.png"));
-            bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
-            spookyImg = ImageIO.read(this.getClass().getResourceAsStream("spooky.png"));
-            candypileImg = ImageIO.read(this.getClass().getResourceAsStream("candypile.png"));
-		} 	
-		catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-    		}
+			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
+			pandaImg = ImageIO.read(this.getClass().getResourceAsStream("panda.png"));
+			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+			spookyImg = ImageIO.read(this.getClass().getResourceAsStream("spooky.png"));
+			candypileImg = ImageIO.read(this.getClass().getResourceAsStream("candypile.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startGame() {
@@ -75,7 +68,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	///////////////////////////////////////////////////////////
-
 
 	public void updateMenuState() {
 
@@ -97,13 +89,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
 		g.drawImage(GamePanel.candypileImg, 100, 200, 300, 200, null);
-		
+
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
 		g.drawString("Candy Guard", 80, 150);
-		
+
 		g.setFont(instruction);
 		g.drawString("You are the halloween candy guard.", 40, 450);
 		g.drawString("Destroy as many bad candies", 80, 500);
@@ -111,7 +103,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("the pile, the game ends. Don't let the", 30, 600);
 		g.drawString("bad candies touch you. Use the arrow", 30, 650);
 		g.drawString("keys to move and space to shoot.", 70, 700);
-		
+
 		g.setColor(Color.YELLOW);
 		g.drawString("Press ENTER To Start", 130, 750);
 	}
@@ -123,15 +115,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
 		g.setColor(Color.RED);
 		g.setFont(font);
 		g.drawString("Game", 190, 150);
 		g.drawString("Over", 200, 200);
-		
+
 		g.setColor(Color.RED);
 		g.setFont(scorefont);
-		g.drawString("You destroyed "+ manage.getScore() + " bad candies!", 50, 400);
+		g.drawString("You destroyed " + manage.getScore() + " bad candies!", 50, 400);
 		g.setFont(done);
 		g.drawString("Hit ENTER to try again", 125, 450);
 	}
@@ -149,8 +141,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
+
 		
-		//MOVE();
 	}
 
 	@Override
@@ -159,53 +151,51 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
 			if (currentState >= END_STATE) {
-				rocket = new Rocketship(180, 650, 50, 50);
+				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 			}
-		}
-		
-		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			right = true;
-			//if (rocket.x>400) {
-				//rocket.x=400;
-			//}
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			left = true;
-			//if (rocket.x<0) {
-				//rocket.x=-10;
-			//}
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			up = true;
-			//if (rocket.y<0) {
-				//rocket.y=0;
-			//}
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			down = false;
-			//if (rocket.y>700) {
-				//rocket.y=700;
-			//}
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			manage.addProjectile(new Projectile(rocket.x+70, rocket.y+ 30, 10, 15));
-		}
-		
-		if (currentState > END_STATE) {
-			currentState = MENU_STATE;
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));
+		} else {
+			if (!rocket.isMoving) {
+
+				// movement keys
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					
+					rocket.isMoving = true;
+					rocket.direction = Ghost.RIGHT;
+					
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					
+					rocket.isMoving = true;
+					rocket.direction = Ghost.LEFT;
+					
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					
+					rocket.isMoving = true;
+					rocket.direction = Ghost.UP;
+					
+				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					
+					rocket.isMoving = true;
+					rocket.direction = Ghost.DOWN;
+					
+				}
+
+			}
+
+			if (currentState > END_STATE) {
+				currentState = MENU_STATE;
+			}
 		}
 	}
 
-	
 	@Override
 	public void keyReleased(KeyEvent a) {
 		// TODO Auto-generated method stub
-//		up = false;
-//		down = false;
-//		left = false;
-//		right = false;
-		
+
+		rocket.isMoving = false;
+
 	}
 
 	@Override
@@ -224,19 +214,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawEndState(g);
 		}
 	}
-	
-//	public void MOVE() {
-//		if (up == true) {
-//			rocket.y-=rocket.speed;
-//		}
-//		if (down == true) {
-//			rocket.y+=rocket.speed;
-//		}
-//		if (left == true) {
-//			rocket.x-=rocket.speed;
-//		}
-//		if (up == true) {
-//			rocket.x+=rocket.speed;
-//		}
-//	}
+
+
 }
