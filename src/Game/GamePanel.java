@@ -40,11 +40,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		titleFont = new Font("Comic Sans", Font.PLAIN, 60);
-		font = new Font("Comic Sans", Font.PLAIN, 48);
-		scorefont = new Font("Comic Sans", Font.PLAIN, 30);
-		instruction = new Font("Comic Sans", Font.PLAIN, 25);
-		done = new Font("Comic Sans", Font.PLAIN, 25);
+		titleFont = new Font("Courier", Font.PLAIN, 60);
+		font = new Font("TimesRoman", Font.PLAIN, 48);
+		scorefont = new Font("Courier", Font.PLAIN, 30);
+		instruction = new Font("Courier", Font.PLAIN, 23);
+		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
 		
@@ -88,22 +88,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
-		g.drawImage(GamePanel.candypileImg, 100, 200, 300, 200, null);
+		g.drawImage(GamePanel.candypileImg, 100, 170, 300, 200, null);
 
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
-		g.drawString("Candy Guard", 80, 150);
+		g.drawString("Candy Guard", 50, 150);
 
 		g.setFont(instruction);
-		g.drawString("You are the halloween candy guard.", 40, 450);
-		g.drawString("Destroy as many bad candies", 80, 500);
-		g.drawString("as you can. Once 5 bad candies reach", 30, 550);
-		g.drawString("the pile, the game ends. Don't let the", 30, 600);
-		g.drawString("bad candies touch you. Use the arrow", 30, 650);
-		g.drawString("keys to move and space to shoot.", 70, 700);
+		g.drawString("You are the halloween candy guard.", 10, 400);
+		g.drawString("Destroy as many bad candies as you", 10, 450);
+		g.drawString("can. Once 5 bad candies reach the", 10, 500);
+		g.drawString("pile, the game ends. Don't let the", 10, 550);
+		g.drawString("bad candies touch you. Use the", 40, 600);
+		g.drawString("arrow keys to move and space", 50, 650);
+		g.drawString("to shoot.", 200, 700);
 
 		g.setColor(Color.YELLOW);
-		g.drawString("Press ENTER To Start", 130, 750);
+		g.drawString("Press ENTER To Start", 120, 750);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -121,9 +122,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setColor(Color.RED);
 		g.setFont(scorefont);
-		g.drawString("You destroyed " + manage.getScore() + " bad candies!", 50, 400);
+		g.drawString("You destroyed " + manage.getScore(), 120, 400);
+		g.drawString("bad candies!", 150, 450);
 		g.setFont(done);
-		g.drawString("Hit ENTER to try again", 125, 450);
+		g.drawString("Hit ENTER to try again", 90, 700);
 	}
 
 	///////////////////////////////////////////////////////////
@@ -148,12 +150,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
-			if (currentState >= END_STATE) {
+			if (currentState > END_STATE) {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 				timer = new Timer(1000 / 60, this);
 				currentState = MENU_STATE;
 			}
+			
 		} 
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));
@@ -178,9 +181,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 
-			if (currentState > END_STATE) {
-				currentState = MENU_STATE;
-			}
 		}
 	}
 
