@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font done;
 	Ghost rocket;
 	ObjectManager manage;
-	
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
@@ -47,7 +46,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
-		
 
 		try {
 			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -88,20 +86,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
-		g.drawImage(GamePanel.candypileImg, 100, 170, 300, 200, null);
+		g.drawImage(GamePanel.candypileImg, 100, 80, 300, 200, null);
 
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
-		g.drawString("Candy Guard", 50, 150);
+		g.drawString("Candy Guard", 50, 70);
 
 		g.setFont(instruction);
-		g.drawString("You are the halloween candy guard.", 10, 400);
-		g.drawString("Destroy as many bad candies as you", 10, 450);
-		g.drawString("can. Once 5 bad candies reach the", 10, 500);
-		g.drawString("pile, the game ends. Don't let the", 10, 550);
-		g.drawString("bad candies touch you. Use the", 40, 600);
-		g.drawString("arrow keys to move and space", 50, 650);
-		g.drawString("to shoot.", 200, 700);
+		g.drawString("You are the halloween candy guard.", 10, 300);
+		g.drawString("Destroy as many bad candies as you", 10, 350);
+		g.drawString("can. Once 5 bad candies reach the", 10, 400);
+		g.drawString("pile, the game ends. Don't let the", 10, 450);
+		g.drawString("bad candies touch you. Use the", 40, 500);
+		g.drawString("arrow keys to move and space", 50, 550);
+		g.drawString("to shoot. Be careful to NOT shoot", 10, 600);
+		g.drawString("the good candies mixed with the", 30, 650);
+		g.drawString("bad candies.", 180, 700);
 
 		g.setColor(Color.YELLOW);
 		g.drawString("Press ENTER To Start", 120, 750);
@@ -142,7 +142,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateEndState();
 		}
 
-		
 	}
 
 	@Override
@@ -156,9 +155,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				timer = new Timer(1000 / 60, this);
 				currentState = MENU_STATE;
 			}
-			
-		} 
-		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));
 		} else {
 			if (!rocket.isMoving) {
@@ -166,16 +164,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.RIGHT;
-				} 
-				else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.LEFT;
-				} 
-				else if (e.getKeyCode() == KeyEvent.VK_UP) {
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.UP;
-				} 
-				else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					rocket.isMoving = true;
 					rocket.direction = Ghost.DOWN;
 				}
@@ -208,6 +203,5 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawEndState(g);
 		}
 	}
-
 
 }
