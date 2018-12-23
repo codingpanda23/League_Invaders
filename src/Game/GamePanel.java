@@ -25,27 +25,35 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font done;
 	Ghost rocket;
 	ObjectManager manage;
+	long totalTime;
+	long elapsedTime;
+	long beginningTime;
+	long pastscore;
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
 	public static BufferedImage bulletImg;
 	public static BufferedImage spookyImg;
 	public static BufferedImage candypileImg;
+	public static BufferedImage goodcandyImg;
+	public static BufferedImage heartImg;
 
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
 	final static int END_STATE = 2;
+	final static int END_STATE2 = 3;
 	static int currentState = MENU_STATE;
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		titleFont = new Font("Courier", Font.PLAIN, 60);
+		titleFont = new Font("Comic Sans MS", Font.PLAIN, 60);
 		font = new Font("TimesRoman", Font.PLAIN, 48);
 		scorefont = new Font("Courier", Font.PLAIN, 30);
-		instruction = new Font("Courier", Font.PLAIN, 23);
+		instruction = new Font("Courier", Font.PLAIN, 22);
 		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
+		beginningTime = System.currentTimeMillis();
 
 		try {
 			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -53,6 +61,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
 			spookyImg = ImageIO.read(this.getClass().getResourceAsStream("spooky.png"));
 			candypileImg = ImageIO.read(this.getClass().getResourceAsStream("candypile.png"));
+			goodcandyImg = ImageIO.read(this.getClass().getResourceAsStream("goodcandy.jpg"));
+			heartImg = ImageIO.read(this.getClass().getResourceAsStream("heart.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,39 +87,55 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!rocket.isAlive) {
 			currentState = END_STATE;
 		}
+		
 	}
 
 	public void updateEndState() {
 
+	}
+	
+	public void updateEndState2(){
+		
 	}
 
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
 		g.drawImage(GamePanel.candypileImg, 100, 80, 300, 200, null);
+		g.drawImage(GamePanel.candyImg, 440, 420, 50, 50, null);
 
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
-		g.drawString("Candy Guard", 50, 70);
+		g.drawString("Candy Guard", 70, 70);
 
 		g.setFont(instruction);
 		g.drawString("You are the halloween candy guard.", 10, 300);
-		g.drawString("Destroy as many bad candies as you", 10, 350);
-		g.drawString("can. Once 5 bad candies reach the", 10, 400);
-		g.drawString("pile, the game ends. Don't let the", 10, 450);
-		g.drawString("bad candies touch you. Use the", 40, 500);
-		g.drawString("arrow keys to move and space", 50, 550);
-		g.drawString("to shoot. Be careful to NOT shoot", 10, 600);
-		g.drawString("the good candies mixed with the", 30, 650);
-		g.drawString("bad candies.", 180, 700);
+		g.drawString("Collect as many pieces of candy as", 10, 350);
+		g.drawString("you can by touching them. Destroy", 10, 400);
+		g.drawString("evil candies by shooting them", 10, 450);
+		g.drawString("with the space key. If one reaches", 10, 500);
+		g.drawString("the pile or touches you, you lose", 10, 550);
+		g.drawString("a life. If you shoot a good candy,", 10, 600);
+		g.drawString("you also lose a life. Move with", 10, 650);
+		g.drawString("the arrow keys before time is up.", 5, 700);
 
+		g.setFont(done);
 		g.setColor(Color.YELLOW);
-		g.drawString("Press ENTER To Start", 120, 750);
+		g.drawString("Press ENTER To Start", 100, 750);
 	}
 
+	public void gameTimer(){
+		elapsedTime = System.currentTimeMillis() - beginningTime;
+		totalTime = elapsedTime/1000;
+	}
+	
 	public void drawGameState(Graphics g) {
 		g.drawImage(GamePanel.spookyImg, -5, -5, 550, 810, null);
 		manage.draw(g);
+		g.setColor(Color.BLACK);
+		g.setFont(scorefont);
+		g.drawString("Time Left:" + totalTime , 10, 40);
+		g.drawString("Lives Left:" + manage.lives(), 10, 80);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -122,10 +148,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setColor(Color.RED);
 		g.setFont(scorefont);
-		g.drawString("You destroyed " + manage.getScore(), 120, 400);
-		g.drawString("bad candies!", 150, 450);
+		g.drawString("You lost all of ", 120, 400);
+		g.drawString("your lives.", 150, 450);
 		g.setFont(done);
 		g.drawString("Hit ENTER to try again", 90, 700);
+	}
+	
+	public void drawEndState2(Graphics g){
+		g.setColor(Color.GREEN);
+		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
+		g.setColor(Color.BLACK);
+		g.setFont(font);
+		g.drawString("Game", 190, 150);
+		g.drawString("Won!", 200, 200);
+		g.setFont(scorefont);
+		g.drawString("You collected" + manage.getScore(), 200, 400);
+		g.setFont(done);
+		g.drawString("Hit ENTER to try again", 90, 700);
+		
 	}
 
 	///////////////////////////////////////////////////////////
@@ -140,6 +180,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateGameState();
 		} else if (currentState == END_STATE) {
 			updateEndState();
+		} else if (currentState == END_STATE2){
+			updateEndState2();
 		}
 
 	}
@@ -153,10 +195,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 				timer = new Timer(1000 / 60, this);
+				beginningTime = System.currentTimeMillis();
 				currentState = MENU_STATE;
 			}
-
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (manage.lives == 0) {
+				currentState = END_STATE;
+			}
+			
+		} 
+		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));
 		} else {
 			if (!rocket.isMoving) {
@@ -201,6 +248,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawGameState(g);
 		} else if (currentState == END_STATE) {
 			drawEndState(g);
+		} else if (currentState == END_STATE2) {
+			drawEndState2(g);
 		}
 	}
 

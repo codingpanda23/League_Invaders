@@ -3,6 +3,7 @@ package Game;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.Timer;
 
 public class ObjectManager {
 	Ghost ship;
@@ -16,6 +17,8 @@ public class ObjectManager {
 	int score;
 	int badCandy;
 	int goodCandy;
+	//int time2;
+	int lives;
 
 	ObjectManager(Ghost object) {
 		ship = object;
@@ -24,9 +27,11 @@ public class ObjectManager {
 		good = new ArrayList<GoodCandy>();
 		enemyTimer = new Long(0);
 		goodTimer = new Long(0);
-		enemySpawnTime = 1000;
-		goodSpawnTime = 5000;
+		enemySpawnTime = 5000;
+		goodSpawnTime = 1000;
 		score = 0;
+		//time2 = 60;
+		lives = 3;
 	}
 
 	public void update() {
@@ -66,6 +71,7 @@ public class ObjectManager {
 	public void addGood(GoodCandy gc) {
 		good.add(gc);
 	}
+	
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
@@ -77,11 +83,12 @@ public class ObjectManager {
 			goodTimer = System.currentTimeMillis();
 		}
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////
 	public void checkCollision() {
 		for (BadCandy a : aliens) {
 			if (ship.collisionBox.intersects(a.collisionBox)) {
-				ship.isAlive = false;
+				lives--;
+				a.isAlive = false;
 			}
 
 			for (Projectile p : projs) {
@@ -95,26 +102,50 @@ public class ObjectManager {
 					if (p.collisionBox.intersects(gcandy.collisionBox)) {
 						gcandy.isAlive = false;
 						p.isAlive = false;
-						GamePanel.currentState = GamePanel.END_STATE;
+						lives--;
 					}
-					if (gcandy.collisionBox.intersects(a.collisionBox)) {
+					if (ship.collisionBox.intersects(gcandy.collisionBox)) {
 						gcandy.isAlive = false;
+						score++;
 					}
+					
 				}
 			}
+		if (lives == 0) {
+			ship.isAlive = false;
+			GamePanel.currentState = GamePanel.END_STATE;
+		}
 		}
 		for (BadCandy b : aliens) {
 			if (b.y + b.height >= 800) {
 				badCandy++;
 				b.isAlive = false;
+				lives--;
 			}
-			if (badCandy >= 5) {
+			if (badCandy >= 3) {
 				GamePanel.currentState = GamePanel.END_STATE;
 			}
 		}
-
+		for (GoodCandy c : good) {
+			if (c.y + c.height >= 800) {
+				c.isAlive = false;
+				score++;
+			}
+		}
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////
+	/*public int timer(){
+		if (System.currentTimeMillis() - enemyTimer >= time2) {
+			time2--;
+		}
+		
+		return this.time2;
+	}*/
+	
+	public int lives(){
+		return this.lives;
+	}
+	
 	public void purgeObjects() {
 		for (int i = 0; i < projs.size(); i++) {
 			if (projs.get(i).isAlive == false) {

@@ -2,8 +2,8 @@ package Game;
 
 import java.awt.Graphics;
 
-public class GoodCandy extends GameObject {
-	GoodCandy(int x, int y, int width, int height) {
+public class Hearts extends GameObject {
+	Hearts(int x, int y, int width, int height) {
 		super(x, y, width, height);
 
 	}
@@ -14,6 +14,6 @@ public class GoodCandy extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(GamePanel.goodcandyImg, x, y, width, height, null);
+		g.drawImage(GamePanel.heartImg, x, y, width, height, null);
 	}
 }
