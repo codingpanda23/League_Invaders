@@ -27,8 +27,8 @@ public class ObjectManager {
 		good = new ArrayList<GoodCandy>();
 		enemyTimer = new Long(0);
 		goodTimer = new Long(0);
-		enemySpawnTime = 5000;
-		goodSpawnTime = 1000;
+		enemySpawnTime = 3000;
+		goodSpawnTime = 3000;
 		score = 0;
 		//time2 = 60;
 		lives = 3;
@@ -75,11 +75,11 @@ public class ObjectManager {
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addAlien(new BadCandy(new Random().nextInt(CandyGuard.width), 0, 50, 50));
+			addAlien(new BadCandy(new Random().nextInt(CandyGuard.width-100), 0, 50, 50));
 			enemyTimer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - goodTimer >= goodSpawnTime) {
-			addGood(new GoodCandy(new Random().nextInt(CandyGuard.width), 0, 50, 50));
+			addGood(new GoodCandy(new Random().nextInt(CandyGuard.width-100), 0, 50, 50));
 			goodTimer = System.currentTimeMillis();
 		}
 	}
@@ -100,15 +100,16 @@ public class ObjectManager {
 
 				for (GoodCandy gcandy : good) {
 					if (p.collisionBox.intersects(gcandy.collisionBox)) {
+						lives--;
 						gcandy.isAlive = false;
 						p.isAlive = false;
-						lives--;
+						
 					}
-					if (ship.collisionBox.intersects(gcandy.collisionBox)) {
-						gcandy.isAlive = false;
-						score++;
+				}
+				for (GoodCandy gc : good) {
+					if (ship.collisionBox.intersects(gc.collisionBox)) {
+						gc.isAlive = false;
 					}
-					
 				}
 			}
 		if (lives == 0) {
@@ -126,12 +127,7 @@ public class ObjectManager {
 				GamePanel.currentState = GamePanel.END_STATE;
 			}
 		}
-		for (GoodCandy c : good) {
-			if (c.y + c.height >= 800) {
-				c.isAlive = false;
-				score++;
-			}
-		}
+		
 	}
 //////////////////////////////////////////////////////////////////////////////////////////
 	/*public int timer(){
@@ -159,7 +155,7 @@ public class ObjectManager {
 		}
 		for (int i = 0; i < good.size(); i++) {
 			if (good.get(i).isAlive == false) {
-				good.remove(i);
+				good.remove(i);  
 			}
 		}
 	}

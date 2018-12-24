@@ -25,10 +25,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font done;
 	Ghost rocket;
 	ObjectManager manage;
-	long totalTime;
-	long elapsedTime;
-	long beginningTime;
-	long pastscore;
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
@@ -53,7 +49,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
-		beginningTime = System.currentTimeMillis();
 
 		try {
 			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -124,18 +119,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Press ENTER To Start", 100, 750);
 	}
 
-	public void gameTimer(){
-		elapsedTime = System.currentTimeMillis() - beginningTime;
-		totalTime = elapsedTime/1000;
-	}
-	
+		
 	public void drawGameState(Graphics g) {
 		g.drawImage(GamePanel.spookyImg, -5, -5, 550, 810, null);
 		manage.draw(g);
 		g.setColor(Color.BLACK);
 		g.setFont(scorefont);
-		g.drawString("Time Left:" + totalTime , 10, 40);
+		g.drawString("Time Left:", 10, 40);
 		g.drawString("Lives Left:" + manage.lives(), 10, 80);
+		g.drawString("Score:" + manage.getScore(), 300, 40);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -150,6 +142,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(scorefont);
 		g.drawString("You lost all of ", 120, 400);
 		g.drawString("your lives.", 150, 450);
+		g.drawString("You scored " + manage.getScore() + " points!", 90, 550);
 		g.setFont(done);
 		g.drawString("Hit ENTER to try again", 90, 700);
 	}
@@ -162,7 +155,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Game", 190, 150);
 		g.drawString("Won!", 200, 200);
 		g.setFont(scorefont);
-		g.drawString("You collected" + manage.getScore(), 200, 400);
+		g.drawString("You scored " + manage.getScore() + " points!", 80, 400);
 		g.setFont(done);
 		g.drawString("Hit ENTER to try again", 90, 700);
 		
@@ -195,7 +188,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 				timer = new Timer(1000 / 60, this);
-				beginningTime = System.currentTimeMillis();
 				currentState = MENU_STATE;
 			}
 			if (manage.lives == 0) {
