@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font done;
 	Ghost rocket;
 	ObjectManager manage;
+	Long gameTimer;
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
+		gameTimer = System.currentTimeMillis();
 
 		try {
 			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -82,7 +84,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!rocket.isAlive) {
 			currentState = END_STATE;
 		}
-		
 	}
 
 	public void updateEndState() {
@@ -123,9 +124,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.drawImage(GamePanel.spookyImg, -5, -5, 550, 810, null);
 		manage.draw(g);
+		Long time = System.currentTimeMillis() - gameTimer;
 		g.setColor(Color.BLACK);
 		g.setFont(scorefont);
-		g.drawString("Time Left:", 10, 40);
+		g.drawString("Time Left:" + (60000-time)/1000, 10, 40);
 		g.drawString("Lives Left:" + manage.lives(), 10, 80);
 		g.drawString("Score:" + manage.getScore(), 300, 40);
 	}

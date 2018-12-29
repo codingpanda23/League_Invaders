@@ -12,12 +12,13 @@ public class ObjectManager {
 	ArrayList<GoodCandy> good;
 	Long enemyTimer;
 	Long goodTimer;
+	Long otherTimer;
 	int enemySpawnTime;
 	int goodSpawnTime;
+	int gameTimer;
 	int score;
 	int badCandy;
 	int goodCandy;
-	//int time2;
 	int lives;
 
 	ObjectManager(Ghost object) {
@@ -30,7 +31,6 @@ public class ObjectManager {
 		enemySpawnTime = 3000;
 		goodSpawnTime = 3000;
 		score = 0;
-		//time2 = 60;
 		lives = 3;
 	}
 
@@ -82,6 +82,7 @@ public class ObjectManager {
 			addGood(new GoodCandy(new Random().nextInt(CandyGuard.width-100), 0, 50, 50));
 			goodTimer = System.currentTimeMillis();
 		}
+		
 	}
 //////////////////////////////////////////////////////////////////////////////////////////
 	public void checkCollision() {
@@ -105,13 +106,12 @@ public class ObjectManager {
 						p.isAlive = false;
 						
 					}
-				}
-				for (GoodCandy gc : good) {
-					if (ship.collisionBox.intersects(gc.collisionBox)) {
-						gc.isAlive = false;
+					if (ship.collisionBox.intersects(gcandy.collisionBox)) {
+						gcandy.isAlive = false;
 					}
 				}
 			}
+		
 		if (lives == 0) {
 			ship.isAlive = false;
 			GamePanel.currentState = GamePanel.END_STATE;
@@ -129,15 +129,7 @@ public class ObjectManager {
 		}
 		
 	}
-//////////////////////////////////////////////////////////////////////////////////////////
-	/*public int timer(){
-		if (System.currentTimeMillis() - enemyTimer >= time2) {
-			time2--;
-		}
-		
-		return this.time2;
-	}*/
-	
+//////////////////////////////////////////////////////////////////////////////////////////	
 	public int lives(){
 		return this.lives;
 	}
@@ -148,14 +140,14 @@ public class ObjectManager {
 				projs.remove(i);
 			}
 		}
-		for (int i = 0; i < aliens.size(); i++) {
-			if (aliens.get(i).isAlive == false) {
-				aliens.remove(i);
+		for (int j = 0; j < aliens.size(); j++) {
+			if (aliens.get(j).isAlive == false) {
+				aliens.remove(j);
 			}
 		}
-		for (int i = 0; i < good.size(); i++) {
-			if (good.get(i).isAlive == false) {
-				good.remove(i);  
+		for (int k = 0; k < good.size(); k++) {
+			if (good.get(k).isAlive == false) {
+				good.remove(k); 
 			}
 		}
 	}
