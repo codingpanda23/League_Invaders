@@ -84,6 +84,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!rocket.isAlive) {
 			currentState = END_STATE;
 		}
+		
 	}
 
 	public void updateEndState() {
@@ -190,6 +191,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 				timer = new Timer(1000 / 60, this);
+				
 				currentState = MENU_STATE;
 			}
 			if (manage.lives == 0) {
