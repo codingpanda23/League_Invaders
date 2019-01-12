@@ -29,7 +29,7 @@ public class ObjectManager {
 		enemyTimer = new Long(0);
 		goodTimer = new Long(0);
 		enemySpawnTime = 3000;
-		goodSpawnTime = 3000;
+		goodSpawnTime = 2000;
 		score = 0;
 		lives = 3;
 	}
@@ -104,11 +104,8 @@ public class ObjectManager {
 						lives--;
 						gcandy.isAlive = false;
 						p.isAlive = false;
-						
 					}
-					if (ship.collisionBox.intersects(gcandy.collisionBox)) {
-						gcandy.isAlive = false;
-					}
+					
 				}
 			}
 		
@@ -116,6 +113,11 @@ public class ObjectManager {
 			ship.isAlive = false;
 			GamePanel.currentState = GamePanel.END_STATE;
 		}
+		}
+		for (GoodCandy gcan : good) {
+			if (ship.collisionBox.intersects(gcan.collisionBox)) {
+				gcan.isAlive = false;
+			}
 		}
 		for (BadCandy b : aliens) {
 			if (b.y + b.height >= 800) {

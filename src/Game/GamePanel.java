@@ -38,7 +38,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
 	final static int END_STATE = 2;
-	final static int END_STATE2 = 3;
 	static int currentState = MENU_STATE;
 
 	GamePanel() {
@@ -92,10 +91,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateEndState() {
 
 	}
-	
-	public void updateEndState2(){
-		
-	}
 
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
@@ -145,25 +140,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setColor(Color.RED);
 		g.setFont(scorefont);
-		g.drawString("You lost all of ", 120, 400);
-		g.drawString("your lives.", 150, 450);
+		g.drawString("Nice Try!", 180, 400);
+		g.drawString("Do better next time!", 90, 450);
 		g.drawString("You scored " + manage.getScore() + " points!", 90, 550);
 		g.setFont(done);
 		g.drawString("Hit ENTER to try again", 90, 700);
-	}
-	
-	public void drawEndState2(Graphics g){
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
-		g.setColor(Color.BLACK);
-		g.setFont(font);
-		g.drawString("Game", 190, 150);
-		g.drawString("Won!", 200, 200);
-		g.setFont(scorefont);
-		g.drawString("You scored " + manage.getScore() + " points!", 80, 400);
-		g.setFont(done);
-		g.drawString("Hit ENTER to try again", 90, 700);
-		
 	}
 
 	///////////////////////////////////////////////////////////
@@ -178,8 +159,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateGameState();
 		} else if (currentState == END_STATE) {
 			updateEndState();
-		} else if (currentState == END_STATE2){
-			updateEndState2();
 		}
 
 	}
@@ -197,12 +176,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				
 				currentState = MENU_STATE;
 			}
-			
 			if (manage.lives == 0) {
 				currentState = END_STATE;
-			}
-			else if (System.currentTimeMillis()-gameTimer == 0) {
-				currentState = END_STATE2;
 			}
 			
 		} 
@@ -251,9 +226,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawGameState(g);
 		} else if (currentState == END_STATE) {
 			drawEndState(g);
-		} else if (currentState == END_STATE2) {
-			drawEndState2(g);
-		}
+		} 
 	}
 
 }
