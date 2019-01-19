@@ -32,6 +32,7 @@ public class ObjectManager {
 		goodSpawnTime = 2000;
 		score = 0;
 		lives = 3;
+		//ship.collisionBox.setSize(width, height);
 	}
 
 	public void update() {
@@ -113,11 +114,11 @@ public class ObjectManager {
 			ship.isAlive = false;
 			GamePanel.currentState = GamePanel.END_STATE;
 		}
-		}
 		for (GoodCandy gcan : good) {
 			if (ship.collisionBox.intersects(gcan.collisionBox)) {
 				gcan.isAlive = false;
 			}
+		}
 		}
 		for (BadCandy b : aliens) {
 			if (b.y + b.height >= 800) {
