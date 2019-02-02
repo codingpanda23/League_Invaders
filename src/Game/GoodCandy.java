@@ -14,6 +14,7 @@ public class GoodCandy extends GameObject {
 	}
 
 	public void draw(Graphics g) {
+		super.draw(g);
 		g.drawImage(GamePanel.goodcandyImg, x, y, width, height, null);
 	}
 }

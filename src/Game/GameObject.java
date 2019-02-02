@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -25,6 +26,7 @@ public class GameObject {
 	}
 
 	public void draw(Graphics g) {
-
+		g.setColor(Color.RED);
+		g.drawRect(collisionBox.x+50, collisionBox.y+30, collisionBox.width, collisionBox.height);
 	}
 }

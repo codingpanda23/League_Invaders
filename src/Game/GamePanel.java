@@ -180,6 +180,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = END_STATE;
 			}
 			
+			
 		} 
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manage.addProjectile(new Projectile(rocket.x + 70, rocket.y + 30, 10, 15));

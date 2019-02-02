@@ -13,6 +13,7 @@ public class BadCandy extends GameObject{
 		y++;
 	}
 	public void draw(Graphics g) {
+		super.draw(g);
 		g.drawImage(GamePanel.candyImg, x, y, width, height, null);
 	}
 }

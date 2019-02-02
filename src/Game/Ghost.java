@@ -55,6 +55,7 @@ public class Ghost extends GameObject {
 
 	public void draw(Graphics g) {
 		g.drawImage(GamePanel.pandaImg, x, y, width+100, height+100, null);
+		super.draw(g);
 
 	}
 

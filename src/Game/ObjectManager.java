@@ -31,9 +31,7 @@ public class ObjectManager {
 		enemySpawnTime = 3000;
 		goodSpawnTime = 2000;
 		score = 0;
-		lives = 3;
-		//ship.collisionBox.setSize(width, height);
-	}
+		lives = 3;	}
 
 	public void update() {
 		ship.update();
@@ -102,9 +100,9 @@ public class ObjectManager {
 
 				for (GoodCandy gcandy : good) {
 					if (p.collisionBox.intersects(gcandy.collisionBox)) {
-						lives--;
 						gcandy.isAlive = false;
 						p.isAlive = false;
+						lives--;
 					}
 					
 				}
