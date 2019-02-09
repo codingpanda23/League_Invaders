@@ -25,8 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font done;
 	Ghost rocket;
 	ObjectManager manage;
-	Long gameTimer;
-	//either get rid of timer or ask Matt
+	//Long gameTimer;
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
@@ -50,7 +49,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		done = new Font("Courier", Font.PLAIN, 25);
 		rocket = new Ghost(180, 650, 50, 50);
 		manage = new ObjectManager(rocket);
-		gameTimer = System.currentTimeMillis();
+		//gameTimer = System.currentTimeMillis();
 
 		try {
 			candyImg = ImageIO.read(this.getClass().getResourceAsStream("candy.png"));
@@ -115,7 +114,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("If 3 evil candies reach the pile,", 10, 550);
 		g.drawString("you shoot a good candy, or you", 10, 600);
 		g.drawString("touch an evil candy, you lose a", 10, 650);
-		g.drawString("life. Watch the timer and aim well!", 5, 700);
+		g.drawString("life. Aim well!", 5, 700);
 
 		g.setFont(done);
 		g.setColor(Color.BLACK);
@@ -130,9 +129,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manage.draw(g);
 		g.setColor(Color.BLACK);
 		g.setFont(scorefont);
-		Long time = System.currentTimeMillis()-gameTimer;
-		g.drawString("Time Left:" + (60000-time)/1000, 10, 40);
-		g.drawString("Lives Left:" + manage.lives(), 10, 80);
+		//Long time = System.currentTimeMillis()-gameTimer;
+		//g.drawString("Time Left:" + (60000-time)/1000, 10, 40);
+		g.drawString("Lives Left:" + manage.lives(), 10, 40);
 		g.drawString("Score:" + manage.getScore(), 300, 40);
 	}
 
@@ -178,7 +177,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				rocket = new Ghost(180, 650, 50, 50);
 				manage = new ObjectManager(rocket);
 				timer = new Timer(1000 / 60, this);
-				gameTimer = System.currentTimeMillis();
+				//gameTimer = System.currentTimeMillis();
 				
 				currentState = MENU_STATE;
 			}
