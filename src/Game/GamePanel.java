@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Ghost rocket;
 	ObjectManager manage;
 	Long gameTimer;
+	//either get rid of timer or ask Matt
 
 	public static BufferedImage candyImg;
 	public static BufferedImage pandaImg;
@@ -95,25 +96,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, CandyGuard.width, CandyGuard.height);
+		g.drawImage(GamePanel.pandaImg, 70, 70, 170, 170, null);
 		g.drawImage(GamePanel.candypileImg, 100, 80, 300, 200, null);
-		g.drawImage(GamePanel.candyImg, 440, 420, 50, 50, null);
+		g.drawImage(GamePanel.candyImg, 380, 365, 50, 50, null);
+		g.drawImage(GamePanel.goodcandyImg, 400, 420, 50, 50, null);
 
 		g.setColor(Color.ORANGE);
 		g.setFont(titleFont);
 		g.drawString("Candy Guard", 70, 70);
 
+		g.setColor(Color.WHITE);
 		g.setFont(instruction);
-		g.drawString("You are the halloween candy guard.", 10, 300);
-		g.drawString("Collect as many pieces of candy as", 10, 350);
-		g.drawString("you can by touching them. Destroy", 10, 400);
-		g.drawString("evil candies by shooting them", 10, 450);
-		g.drawString("with the space key. If one reaches", 10, 500);
-		g.drawString("the pile or touches you, you lose", 10, 550);
-		g.drawString("a life. If you shoot a good candy,", 10, 600);
-		g.drawString("you also lose a life. Move with", 10, 650);
-		g.drawString("the arrow keys before time is up.", 5, 700);
+		g.drawString("Move in all directions with the", 10, 300);
+		g.drawString("arrow keys. Use the space bar", 10, 350);
+		g.drawString("to destroy evil candies -->", 10, 400);
+		g.drawString("and touch the good candies -->", 10, 450);
+		g.drawString("to collect them to earn points.", 10, 500);
+		g.drawString("If 3 evil candies reach the pile,", 10, 550);
+		g.drawString("you shoot a good candy, or you", 10, 600);
+		g.drawString("touch an evil candy, you lose a", 10, 650);
+		g.drawString("life. Watch the timer and aim well!", 5, 700);
 
 		g.setFont(done);
+		g.setColor(Color.BLACK);
+		g.fillRect(80, 725, 345, 40);
 		g.setColor(Color.YELLOW);
 		g.drawString("Press ENTER To Start", 100, 750);
 	}

@@ -22,7 +22,6 @@ public class Projectile extends GameObject{
 	}
 
 	public void draw(Graphics g) {
-		super.draw(g);
 		g.drawImage(GamePanel.bulletImg, x, y, width, height, null);
 	}
 	
